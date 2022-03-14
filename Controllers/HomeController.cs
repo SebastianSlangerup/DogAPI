@@ -7,8 +7,9 @@ namespace DogAPI.Controllers;
 
 public class HomeController : Controller
 {
-    public string JsonString { get; set; }
+    public string? JsonString { get; set; }
     
+    // ReSharper disable once NotAccessedField.Local
     private readonly ILogger<HomeController> _logger;
 
     public HomeController(ILogger<HomeController> logger)
@@ -18,10 +19,10 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-       JsonString = await GetJsonFromApi("https://dog.ceo/api/breeds/image/random");
-       DogModel? dml = JsonConvert.DeserializeObject<DogModel>(JsonString);  
-       
-       return View(dml);
+        JsonString = await GetJsonFromApi("https://dog.ceo/api/breeds/image/random");
+        DogModel dml = JsonConvert.DeserializeObject<DogModel>(JsonString);
+
+        return View(dml);
     }
 
     public IActionResult Privacy()
